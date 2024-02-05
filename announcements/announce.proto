@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "https://github.com/cotorosvasile/simpals_test_project";
+
+package announcements_portal;
+
+service AnnouncementsService {
+  rpc CreateAnnouncement (CreateAnnouncementRequest) returns (AnnouncementResponse) {}
+}
+
+message Categories {
+    string subcategory = 1;
+}
+
+message Title {
+    string ro = 1;
+    string ru = 2;
+}
+
+message Announcement {
+    string _id = 1;
+    Categories categories = 2;
+    Title title = 3;
+    string type = 4;
+    double posted = 5;
+}
+message CreateAnnouncementRequest {
+    repeated Announcement Announcements = 1;
+}
+
+message AnnouncementResponse {
+    double response = 5;
+}
