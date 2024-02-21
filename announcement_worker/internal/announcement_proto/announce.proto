@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "https://github.com/cotorosvasile/announcements";
+
+package announcements;
+
+service AnnouncementsService {
+  rpc CreateAnnouncement (Announcement) returns (AnnouncementResponse) {}
+  rpc GetAllAnnouncements(GetAllAnnouncementsRequest) returns (GetAllAnnouncementsResponse) {}
+}
+
+message Announcement {
+  string id = 1;
+  Categories categories = 2;
+  Title title = 3;
+  string type = 4;
+  double posted = 5;
+
+  message Categories {
+    string subcategory = 1;
+  }
+
+  message Title {
+    string ro = 1;
+    string ru = 2;
+  }
+}
+
+
+message AnnouncementResponse {
+    double response = 5;
+}
+
+message GetAllAnnouncementsRequest {}
+
+message GetAllAnnouncementsResponse {
+  repeated Announcement announcements = 1;
+}

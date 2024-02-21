@@ -1,0 +1,8 @@
+# Stage 1: Build the announcement_proto
+FROM golang:1.21 as proto-builder
+
+WORKDIR /app
+COPY . .
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -tags musl -installsuffix cgo -ldflags '-w -s -extldflags "-static"' -o /main cmd/main.go
+
+CMD ["/main"]

@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+  announcement_server:
+    build: ./announcement_server
+    volumes:
+      - ./announcement_server:/app
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5005:5005"
+    links:
+      - elasticsearch
+  announcement_worker:
+    build: ./announcement_worker
+    volumes:
+      - ./announcement_worker:/app
+    depends_on:
+      - announcement_server
+    ports:
+      - "8080:8080"
